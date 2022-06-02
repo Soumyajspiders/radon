@@ -5,7 +5,7 @@
 // const log = function() {
 //     console.log('I am inside the log function')
 // }
- const welcome= function (){
+ const welcome = function (){
     console.log("welcome to my application.i am soumya prakash ojha and a part of functionup radon cohot.")
 }
 
