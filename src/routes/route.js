@@ -2,7 +2,8 @@ const express = require('express');
 
 const router = express.Router();
 
-// Problem No-1
+
+// Create an API for GET /movies that returns a list of movies. Define an array of movies in your code and return the value in response.
 
 router.get('/movies', function (req, res) {
 
@@ -49,7 +50,12 @@ res.send(arr)
 
 });
 
-// // Problem No-5
+// // Write api GET /films/:filmId where filmId is the value received in request path params. Use this value to return a movie object with this id. In case there is no such movie present in the array, return a suitable message in the response body. Example for a request GET /films/3 should return the movie object 
+// {
+//     “id”: 3,
+//     “name”: “Rang de Basanti”
+//    }
+//    Similarly for a request GET /films/9 the response can be something like - ‘No movie exists with this id’
 
 router.get('/films/:filmId', function (req, res) {
 
