@@ -1,37 +1,103 @@
-const { count } = require("console")
+
+
 const bookModel = require("../models/bookModel")
-const BookModel= require("../models/bookModel")
+const authorModel=require("../models/authorModel")
 
-const createBook= async function (req, res) {
-    let data= req.body
 
-    let savedData= await BookModel.create(data)
-    res.send({msg: savedData})
+let createAuthor = async function(req,res){
+         let data=req.body
+         let savedData=await authorModel.create(data)
+         res.send({msg:savedData})
 }
 
-const getBooksData= async function (req, res) {}
-
-const bookLIST= async function (req,res){
-    let allBooks=await bookModel.find().select({bookname:1,authorName:1,_id:0})
-    return res.send({msg:allBooks})
+let createBook = async function(req,res){
+    let data=req.body
+    let savedData=await bookModel.create(data)
+    res.send({msg:savedData})
 }
 
-const yearDetails=async function(req,res){
-    let yearlist=await bookModel.find({year:req.body.year}).select({bookName:1,_id:0})
-    res.send(yearlist)
+let getbooksbyChetanbhagat = async function(req,res){
+    let data=await authorModel.find({author_name:"Chetan Bhagat"}).select("author_id")
+    let bookData=await bookModel.find({author_id:data[0].author_id})
+    res.send({msg:bookData})
 }
 
-const porticularBooks =async function(req,res){
-    let specificBooks=await bookModel.find(req.body)
-    res.send({msg:specificbooks})
+let authorOfbook = async function(req,res){
+    let data=await bookModel.findOneAndUpdate({name:"Two states"},{$set:{price:100}},{new:true})
+    let authorData=await authorModel.find({author_id:data.author_id}).select("author_name")
+    let price=data.prices
+    res.send({msg:savedData})
 }
 
-const priceDetailes=async function(req,res){
-    let list=await bookModel.find({"price.indianPrice":{$in:["100INR","200INR","500INR"]}}
-    ).select({booksName:1,_id:0})
-    res.send({msg:list})
+module.exports.createAuthor= createAuthor
+module.exports.createBook=createBook
+module.exports.getbooksbyChetanbhagat=getbooksbyChetanbhagat
+module.exports.authorOfbook=authorOfbook
 
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// const { count } = require("console")
+// const bookModel = require("../models/bookModel")
+// const BookModel= require("../models/bookModel")
+
+// const createBook= async function (req, res) {
+//     let data= req.body
+
+//     let savedData= await BookModel.create(data)
+//     res.send({msg: savedData})
+// }
+
+// const getBooksData= async function (req, res) {}
+
+// const bookLIST= async function (req,res){
+//     let allBooks=await bookModel.find().select({bookname:1,authorName:1,_id:0})
+//     return res.send({msg:allBooks})
+// }
+
+// const yearDetails=async function(req,res){
+//     let yearlist=await bookModel.find({year:req.body.year}).select({bookName:1,_id:0})
+//     res.send(yearlist)
+// }
+
+// const porticularBooks =async function(req,res){
+//     let specificBooks=await bookModel.find(req.body)
+//     res.send({msg:specificbooks})
+// }
+
+// const priceDetailes=async function(req,res){
+//     let list=await bookModel.find({"price.indianPrice":{$in:["100INR","200INR","500INR"]}}
+//     ).select({booksName:1,_id:0})
+//     res.send({msg:list})
+
+// }
 
     
 
@@ -105,10 +171,10 @@ const priceDetailes=async function(req,res){
     // b= b+ 10
     // console.log(b)
     // res.send({msg: allBooks})
-module.exports.yearDetails= yearDetails
-module.exports.priceDetailes= priceDetailes
-module.exports.porticularBooks= porticularBooks
-module.exports.createBook= createBook
-module.exports.bookLIST= bookLIST
+// module.exports.yearDetails= yearDetails
+// module.exports.priceDetailes= priceDetailes
+// module.exports.porticularBooks= porticularBooks
 // module.exports.createBook= createBook
-module.exports.getBooksData= getBooksData
+// module.exports.bookLIST= bookLIST
+// module.exports.createBook= createBook
+// module.exports.getBooksData= getBooksData
