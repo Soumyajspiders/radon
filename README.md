@@ -73,7 +73,7 @@ For paid user app and the user has sufficient balance. We deduct the balance fro
 For paid app user and the user has insufficient balance. We send an error that the user doesn't have enough balance
 
 - //Scenario 3
-<!-- For free app user, we dont check user's balance and create the order with 0 amount. -->
+For free app user, we dont check user's balance and create the order with 0 amount.
 
 
 
