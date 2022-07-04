@@ -14,13 +14,13 @@ try{
 
     if (typeof name !== "string")return res.status(400).send({ status: false, msg: " Please enter  name as a String" });
 
-    if (!/^\w[a-zA-Z.\s]*$/.test(name))return res.status(400).send({ status: false, msg: "The  name may contain only letters" });
+    if (!/^\w[a-zA-Z.]*$/.test(name))return res.status(400).send({ status: false, msg: "The  name may contain only letters" });
 
     if (!fullName)return res.status(400).send({status:false,msg:"fullName is missing"})
 
     if (typeof fullName !== "string")return res.status(400).send({ status: false, msg: " Please enter  fullName as a String" });
 
-    if (!/^\w[a-zA-Z.,\s]*$/.test(fullName))return res.status(400).send({ status: false, msg: "The  fullName may contain only letters" });
+    if (!/^\w[a-zA-Z.,\s,\_]*$/.test(fullName))return res.status(400).send({ status: false, msg: "The  fullName may contain only letters" });
 
     if (!logoLink) return res.status(400).send({status:false,msg:"please enter logo link"})
 
@@ -29,8 +29,12 @@ try{
     if (!/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+(png|jpg|jpeg|gif|png|svg)$/.test(logoLink))return res.status(400).send({ status: false, msg: "Please enter valid logo link" });
 
     let uniqueName = await collegeModel.findOne({ name: name })
-
     if (uniqueName) return res.status(400).send({ status: false, msg: "This name already exists" })
+
+    let uniqueFullName = await collegeModel.findOne({ fullName: fullName })
+    if (uniqueFullName) return res.status(400).send({ status: false, msg: "This Fullname already exists" })
+
+   
 
     let saveData=await collegeModel.create(req.body)
     return res.status(201).send({status:true,msg:"College is created Successfully",data:saveData,})
