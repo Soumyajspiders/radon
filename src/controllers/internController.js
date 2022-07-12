@@ -6,7 +6,10 @@ const validator = require('validator')
 // CREATE INTERN
 
 const createIntern = async function (req, res) {
+    res.setHeader("Access-Control-Allow-Origin", "*");
     try {
+        console.log(req.body);
+        console.log("jugf");
         let { name, email, mobile, collegeName } = req.body
 
         if (Object.keys(req.body).length == 0) return res.status(400).send({ status: false, msg: "please enter a data in request body" })

@@ -5,6 +5,7 @@ const internModel = require('../models/internModel')
 // CREATE COLLEGE
 
 const createCollege = async function (req, res) {
+    res.setHeader("Access-Control-Allow-Origin", "*");
 try{
     let { name, fullName, logoLink } = req.body
 
@@ -32,7 +33,9 @@ try{
     if (uniqueName) return res.status(400).send({ status: false, msg: "This name already exists" })
 
     let uniqueFullName = await collegeModel.findOne({ fullName: fullName })
+    let uniquelogoLink = await collegeModel.findOne({ logoLink: logoLink })
     if (uniqueFullName) return res.status(400).send({ status: false, msg: "This Fullname already exists" })
+    if (uniquelogoLink) return res.status(400).send({ status: false, msg: "This logoLink already exists" })
 
    
 
@@ -47,7 +50,7 @@ try{
 // GET COLLEGE DETAILS
 
 const getCollegeDetail = async function (req,res) {
-
+    res.setHeader("Access-Control-Allow-Origin", "*");
     try {
         let query =req.query;
       
@@ -61,11 +64,11 @@ const getCollegeDetail = async function (req,res) {
 
         if(!collegeDetail)  return res.status(404).send({status:false,msg:`${query.collegeName} College  is not present .`})
 
-        let intern = await internModel.find({collegeId:collegeDetail._id,isDeleted:false}).select({name:1,email:1,mobile:1});
+        let interests = await internModel.find({collegeId:collegeDetail._id,isDeleted:false}).select({name:1,email:1,mobile:1});
 
         let {name,fullName,logoLink} = collegeDetail
 
-        return res.status(200).send({status:true, data:{name,fullName,logoLink,intern}})
+        return res.status(200).send({status:true, data:{name,fullName,logoLink,interests}})
         
     } catch (error) {return res.status(500).send({status:false,msg:error.message})}
 
